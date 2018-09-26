@@ -1,1 +1,58 @@
+// Kyle Leadbetter
+// COSC 2030 Section 1
+// Lab 1
+
+#include "pch.h"
+#include <iostream>
+
+using std::cout;
+using std::cin;
+
+#include<string>
+using std::string;
+
+#include<fstream>
+using std::ifstream;
+
+int main()
+{
+	string filename("");
+	cout << "Enter a filename: ";
+	cin >> filename;
+
+	ifstream input;
+	double buffer1(0);
+	double buffer2(0);
+	double buffer3(0); //only exists to store second to last value, the variable assignment happens one too many times
+	int count(-1); //starts at -1 so the while loop can iterate once to set itself so to speak
+
+	cout << "The first numbers are: ";
+	input.open(filename);
+	
+	while (!input.eof()) // this loop reads from the file as long as the end is not reached
+	{
+		count++;
+		if (count == 1)
+		{
+			cout << buffer1;
+		}
+		else if (count == 2)
+		{
+			cout << " and " << buffer1;
+		}
+		input >> buffer1; //reads from file here, doesnt print or count if eof()
+		if (!input.eof())
+		{
+			buffer3 = buffer2;
+			buffer2 = buffer1;
+		}
+
+	}
+	input.close();
+
+	cout << "\nThe last two numbers are: " << buffer3 << " and " << buffer1;
+	cout << "\nThere are " << count << " numbers in this file.\n";
+
+	
+}
 
